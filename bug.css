@@ -1,0 +1,33 @@
+The CSS specificity rules can sometimes lead to unexpected styling issues.  For example, consider the following scenario:
+
+```css
+div {
+  color: blue;
+}
+
+.specific {
+  color: red;
+}
+
+#verySpecific {
+  color: green;
+}
+
+#verySpecific.specific {
+ color: purple;
+}
+
+#verySpecific.specific div {
+  color: yellow;
+}
+```
+
+Applying these rules to the HTML:
+
+```html
+<div id="verySpecific" class="specific">
+  <div>This is some text.</div>
+</div>
+```
+
+You might expect the inner `div` to be yellow, but it will actually be purple because of how specificity works in CSS. The id selector (#verySpecific) and the class selector (.specific) combined have a higher specificity than the more general `div` selector, even if they are further down the cascade.
